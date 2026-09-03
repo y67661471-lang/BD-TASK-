@@ -2,131 +2,261 @@
 
 ## 📋 Overview
 
-সম্পূর্ণ **Telegram Mini App** সিস্টেম যেখানে ব্যবহারকারীরা বিজ্ঞাপন দেখে আয় করতে পারেন। এতে রয়েছে:
+সম্পূর্ণ **Telegram Mini App** সিস্টেম যেখানে ব্যবহারকারীরা বিজ্ঞাপন দেখে আয় করতে পারবে। এটি একটি সম্পূর্ণ প্ল্যাটফর্ম যা নিম্নোক্ত বৈশিষ্ট্য সমর্থন করে:
 
-- ✅ **Advanced Robotic Security System** (24/7 Automatic Fraud Detection)
-- ✅ **User Panel** (Profile, Tasks, Wallet, Referral)
-- ✅ **Admin Dashboard** (Full Control & Live Monitoring)
-- ✅ **Hard Security Checks** (Token Verification, Risk Scoring)
-- ✅ **Withdrawal System** (Automatic Payment Processing)
-- ✅ **Referral Program** (Anti-Fraud Detection)
+### ✨ প্রধান বৈশিষ্ট্য
+
+- ✅ **Telegram Mini App Integration** - সরাসরি টেলিগ্রাম থেকে অ্যাক্সেস করুন
+- ✅ **User Management System** - প্রোফাইল, টাস্ক, ওয়ালেট, রেফারেল
+- ✅ **Earning System** - বিজ্ঞাপন দেখে আয় করুন
+- ✅ **Referral Program** - বন্ধুদের আমন্ত্রণ জানান এবং উপার্জন করুন
+- ✅ **Security System** - টোকেন ভেরিফিকেশন এবং ফ্রড ডিটেকশন
+- ✅ **Withdrawal System** - স্বয়ংক্রিয় পেমেন্ট প্রসেসিং
+- ✅ **Admin Dashboard** - সম্পূর্ণ নিয়ন্ত্রণ এবং লাইভ মনিটরিং
 
 ---
 
-## 🚀 Quick Start
+## 🚀 দ্রুত শুরু করুন
 
-### Prerequisites
-- Node.js v16+
-- PostgreSQL 12+
-- Telegram Bot Token (@BotFather)
+### প্রয়োজনীয় প্রয়োজনীয়তা
 
-### Installation
+- **Node.js** v16+
+- **npm** v8+
+- **Telegram Bot Token** (@BotFather থেকে পান)
+
+### ইনস্টলেশন
 
 ```bash
-# Clone repository
-git clone https://github.com/robiulbhai2766-byte/BD-TASK-.git
+# রিপোজিটরি ক্লোন করুন
+git clone https://github.com/y67661471-lang/BD-TASK-.git
 cd BD-TASK-
 
-# Install dependencies
+# ডিপেন্ডেন্সি ইনস্টল করুন
 npm install
 
-# Setup environment variables
+# পরিবেশ ভেরিয়েবল সেটআপ করুন
 cp .env.example .env
-# Edit .env with your credentials
+# আপনার শংসাপত্র দিয়ে .env সম্পাদনা করুন
 
-# Database migration
-npm run db:migrate
-
-# Seed demo data
-npm run db:seed
-
-# Start development server
+# ডেভেলপমেন্ট সার্ভার শুরু করুন
 npm run dev
 ```
 
 ---
 
-## 📁 Project Structure
+## 📁 প্রজেক্ট স্ট্রাকচার
 
 ```
 BD-TASK-/
-├── server/
-│   ├── config/              # Configuration files
-│   ├── database/            # Database setup & migrations
-│   ├── routes/              # API routes
-│   ├── controllers/         # Business logic
-│   ├── models/              # Database models
-│   ├── middleware/          # Express middleware
-│   ├── security/            # Robotic security system
-│   ├── telegram/            # Telegram bot setup
-│   └── index.js             # Server entry point
-├── frontend/
-│   ├── public/              # Static files
-│   ├── src/
-│   │   ├── components/      # React components
-│   │   ├── pages/           # User panel pages
-│   │   ├── admin/           # Admin panel
-│   │   ├── api/             # API client
-│   │   └── App.js
-│   └── package.json
-├── .env.example
-├── package.json
-└── README.md
+├── index.js                     # মূল সার্ভার ফাইল
+├── package.json                 # ডিপেন্ডেন্সি এবং স্ক্রিপ্ট
+├── .env                          # পরিবেশ ভেরিয়েবল
+├── .env.example                  # উদাহরণ এনভায়রনমেন্ট ফাইল
+├── .gitignore                    # গিট ইগনোর ফাইল
+├── README.md                     # এই ফাইল
+│
+├── src/
+│   ├── telegram/
+│   │   ├── botHandler.js         # বট ইভেন্ট হ্যান্ডলার
+│   │   └── webhookSetup.js       # ওয়েবহুক কনফিগারেশন
+│   │
+│   ├── services/
+│   │   └── notificationService.js # নোটিফিকেশন সেবা
+│   │
+│   ├── events/
+│   │   └── eventEmitter.js       # ইভেন্ট ইমিটার
+│   │
+│   ├── models/
+│   │   └── userModel.js          # ইউজার ডাটাবেস মডেল
+│   │
+│   └── routes/
+│       └── index.js              # API রুট এবং এন্ডপয়েন্ট
+│
+├── data/
+│   └── users.json                # ইউজার ডাটাবেস (JSON)
+│
+└── logs/
+    └── bot.log                   # লগ ফাইল
 ```
 
 ---
 
-## 🔑 Key Features
+## 🔌 API এন্ডপয়েন্ট
 
-### 🛡️ Security System
-- Telegram Auth Verification
-- One-Time Token System
-- Duplicate Protection
-- Rate Limiting
-- Risk Score Algorithm
-- Fraud Detection
-- Automatic Blocking
+### ✅ স্বাস্থ্য পরীক্ষা
 
-### 💰 Earning System
-- Watch Ads/Tasks
-- Complete Tasks
-- Referral Rewards
-- Daily Bonus
-- Withdrawal System
+```bash
+GET /health
+```
 
-### 📊 Dashboard
-- User Analytics
-- Real-time Monitoring
-- Security Alerts
-- Task Management
-- Reward Tracking
+**রেসপন্স:**
+```json
+{
+  "status": "Server is running! 🚀",
+  "timestamp": "2026-09-03T...",
+  "botName": "BDTASK"
+}
+```
+
+### 📊 সার্ভার স্ট্যাটাস
+
+```bash
+GET /status
+```
+
+### 👤 ইউজার ম্যানেজমেন্ট
+
+#### নতুন ইউজার তৈরি করুন
+```bash
+POST /api/user
+Content-Type: application/json
+
+{
+  "userId": "123456789",
+  "userName": "test_user",
+  "firstName": "Test User"
+}
+```
+
+#### ইউজার তথ্য পান
+```bash
+GET /api/user/:userId
+```
+
+#### ব্যালেন্স আপডেট করুন
+```bash
+POST /api/user/:userId/balance
+Content-Type: application/json
+
+{
+  "amount": 500
+}
+```
+
+#### রেফারেল যুক্ত করুন
+```bash
+POST /api/referral/:userId
+Content-Type: application/json
+
+{
+  "referralId": "987654321"
+}
+```
+
+### 📈 পরিসংখ্যান
+
+#### সমস্ত ইউজার দেখুন
+```bash
+GET /api/users/all
+```
+
+#### ইউজার পরিসংখ্যান
+```bash
+GET /api/stats/users
+```
 
 ---
 
-## 📚 Documentation
+## 🤖 টেলিগ্রাম বট কমান্ড
 
-- [API Documentation](./docs/API.md)
-- [Database Schema](./docs/DATABASE.md)
-- [Security Guide](./docs/SECURITY.md)
-- [Admin Guide](./docs/ADMIN.md)
-
----
-
-## 🤝 Contributing
-
-Contributions are welcome! Please read CONTRIBUTING.md first.
+| কমান্ড | বিবরণ |
+|--------|--------|
+| `/start` | বট শুরু করুন এবং নিবন্ধন করুন |
+| `/status` | বর্তমান অবস্থা দেখুন |
+| `/balance` | আপনার ব্যালেন্স দেখুন |
+| `/help` | সাহায্য এবং তথ্য পান |
 
 ---
 
-## 📄 License
+## ⚙️ কনফিগারেশন (.env ফাইল)
 
-MIT License - See LICENSE file for details
+```bash
+# টেলিগ্রাম কনফিগারেশন
+TELEGRAM_BOT_TOKEN=আপনার_বট_টোকেন
+TELEGRAM_BOT_USERNAME=@আপনার_বট_ইউজারনেম
+TELEGRAM_BOT_NAME=BDTASK
+
+# সার্ভার কনফিগারেশন
+PORT=3000
+NODE_ENV=development
+WEBHOOK_URL=https://yourdomain.com/webhook
+
+# ডাটাবেস
+DB_PATH=./data/users.json
+
+# লগিং
+LOG_LEVEL=info
+LOG_FILE=./logs/bot.log
+```
 
 ---
 
-## 📞 Support
+## 🛠️ উন্নয়ন কমান্ড
 
-Come back soon for support information.
+```bash
+# ডেভেলপমেন্ট মোডে চালান (auto-restart সহ)
+npm run dev
 
-**Version:** 1.0.0  
-**Last Updated:** 2026-09-03
+# প্রোডাকশনে চালান
+npm start
+
+# টেস্ট চালান
+npm test
+
+# লিন্ট চেক করুন
+npm run lint
+```
+
+---
+
+## 📦 ডিপেন্ডেন্সি
+
+| প্যাকেজ | সংস্করণ | উদ্দেশ্য |
+|---------|---------|----------|
+| express | ^4.18.2 | ওয়েব ফ্রেমওয়ার্ক |
+| dotenv | ^16.0.3 | এনভায়রনমেন্ট ভেরিয়েবল |
+| node-telegram-bot-api | ^0.61.0 | টেলিগ্রাম ইন্টিগ্রেশন |
+| axios | ^1.4.0 | HTTP ক্লায়েন্ট |
+
+---
+
+## 🔐 নিরাপত্তা
+
+- ✅ পরিবেশ ভেরিয়েবল সুরক্ষিত রাখুন
+- ✅ সংবেদনশীল তথ্য `.gitignore` এ রাখুন
+- ✅ নিয়মিত আপডেট এবং প্যাচ প্রয়োগ করুন
+- ✅ ইনপুট ভ্যালিডেশন সর্বদা করুন
+
+---
+
+## 📝 লাইসেন্স
+
+MIT License - বিস্তারিত জন্য LICENSE ফাইল দেখুন
+
+---
+
+## 🤝 অবদান রাখুন
+
+অবদান স্বাগত জানাই! প্রথমে CONTRIBUTING.md পড়ুন।
+
+---
+
+## 📞 সহায়তা
+
+যেকোনো সমস্যা বা প্রশ্নের জন্য একটি GitHub issue খুলুন।
+
+---
+
+## 📊 প্রজেক্ট তথ্য
+
+| তথ্য | বিবরণ |
+|------|--------|
+| **সংস্করণ** | 1.0.0 |
+| **শেষ আপডেট** | 2026-09-03 |
+| **ভাষা** | JavaScript (Node.js) |
+| **লাইসেন্স** | MIT |
+| **টেলিগ্রাম বট** | @BDTASK53_bot |
+
+---
+
+**✨ Happy Coding! আপনার BDTASK বট এখন চালুর জন্য প্রস্তুত! 🚀**
