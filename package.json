@@ -1,0 +1,26 @@
+{
+  "name": "bd-task-telegram-app",
+  "version": "1.0.0",
+  "description": "Telegram Mini App - Watch Ads & Earn with Robotic Security",
+  "main": "server/index.js",
+  "scripts": {
+    "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
+    "dev:server": "cd server && nodemon index.js",
+    "dev:client": "cd client && npm run dev",
+    "build": "cd client && npm run build",
+    "start": "cd server && node index.js",
+    "db:migrate": "cd server && node scripts/migrate.js",
+    "db:seed": "cd server && node scripts/seed.js"
+  },
+  "keywords": [
+    "telegram",
+    "mini-app",
+    "ad-revenue",
+    "security"
+  ],
+  "author": "BD Task Team",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.0.0"
+  }
+}
