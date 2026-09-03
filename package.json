@@ -1,26 +1,42 @@
 {
-  "name": "bd-task-telegram-app",
+  "name": "bd-task-telegram-mini-app",
   "version": "1.0.0",
-  "description": "Telegram Mini App - Watch Ads & Earn with Robotic Security",
+  "description": "Telegram Mini App - Watch Ads & Earn with Advanced Robotic Security",
   "main": "server/index.js",
   "scripts": {
-    "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
-    "dev:server": "cd server && nodemon index.js",
-    "dev:client": "cd client && npm run dev",
-    "build": "cd client && npm run build",
-    "start": "cd server && node index.js",
-    "db:migrate": "cd server && node scripts/migrate.js",
-    "db:seed": "cd server && node scripts/seed.js"
+    "start": "node server/index.js",
+    "dev": "nodemon server/index.js",
+    "test": "jest",
+    "db:migrate": "node server/database/migrate.js",
+    "db:seed": "node server/database/seed.js"
   },
   "keywords": [
     "telegram",
     "mini-app",
-    "ad-revenue",
-    "security"
+    "ads",
+    "earning",
+    "security",
+    "robotic-check"
   ],
-  "author": "BD Task Team",
+  "author": "BD-TASK",
   "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "pg": "^8.10.0",
+    "dotenv": "^16.3.1",
+    "jsonwebtoken": "^9.1.0",
+    "bcryptjs": "^2.4.3",
+    "axios": "^1.6.0",
+    "telegraf": "^4.14.0",
+    "cors": "^2.8.5",
+    "helmet": "^7.1.0",
+    "express-validator": "^7.0.0",
+    "redis": "^4.6.0",
+    "uuid": "^9.0.0",
+    "crypto-js": "^4.1.1"
+  },
   "devDependencies": {
-    "concurrently": "^8.0.0"
+    "nodemon": "^3.0.1",
+    "jest": "^29.7.0"
   }
 }
