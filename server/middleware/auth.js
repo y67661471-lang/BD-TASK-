@@ -1,77 +1,113 @@
+/**
+ * Authentication Middleware
+ */
+
 const jwt = require('jsonwebtoken');
-const database = require('../config/database');
+const config = require('../config/config');
 
-// Verify Telegram Init-Data
-const verifyTelegramInitData = async (req, res, next) => {
-  try {
-    const { initData } = req.body || req.headers;
-
-    if (!initData) {
-      return res.status(401).json({ success: false, message: 'Missing init data' });
-    }
-
-    // Parse and verify init-data (simplified)
-    const params = new URLSearchParams(initData);
-    const telegramId = params.get('user')?.split('"id":')[1]?.split(',')[0];
-
-    if (!telegramId) {
-      return res.status(401).json({ success: false, message: 'Invalid init data' });
-    }
-
-    const user = await database.query(
-      'SELECT id, telegram_id, username FROM users WHERE telegram_id = $1',
-      [parseInt(telegramId)]
-    );
-
-    if (user.rows.length === 0) {
-      return res.status(401).json({ success: false, message: 'User not found' });
-    }
-
-    req.user = user.rows[0];
-    next();
-  } catch (error) {
-    console.error('Telegram verification error:', error);
-    res.status(401).json({ success: false, message: 'Verification failed' });
-  }
-};
-
-// JWT Verification
-const verifyJWT = (req, res, next) => {
+/**
+ * Verify JWT Token
+ */
+const verifyToken = (req, res, next) => {
   try {
     const token = req.headers.authorization?.split(' ')[1];
 
     if (!token) {
-      return res.status(401).json({ success: false, message: 'Missing token' });
+      return res.status(401).json({
+        success: false,
+        message: 'No authentication token provided'
+      });
     }
 
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const decoded = jwt.verify(token, config.JWT_SECRET);
     req.user = decoded;
     next();
   } catch (error) {
-    res.status(401).json({ success: false, message: 'Invalid token' });
+    return res.status(401).json({
+      success: false,
+      message: 'Invalid or expired token',
+      error: error.message
+    });
   }
 };
 
-// Admin Verification
-const verifyAdmin = async (req, res, next) => {
+/**
+ * Verify Telegram Init Data
+ */
+const verifyTelegramData = (req, res, next) => {
   try {
-    const result = await database.query(
-      'SELECT role FROM admin_users WHERE id = $1',
-      [req.user.id]
-    );
+    const initData = req.body.init_data;
 
-    if (result.rows.length === 0 || result.rows[0].role !== 'admin') {
-      return res.status(403).json({ success: false, message: 'Access denied' });
+    if (!initData) {
+      return res.status(401).json({
+        success: false,
+        message: 'Telegram init data is required'
+      });
     }
+
+    // In production, verify the signature
+    // For now, just parse and validate basic structure
+    const params = new URLSearchParams(initData);
+    const userData = JSON.parse(params.get('user') || '{}');
+
+    if (!userData.id) {
+      return res.status(401).json({
+        success: false,
+        message: 'Invalid Telegram user data'
+      });
+    }
+
+    req.telegram = {
+      user: userData,
+      init_data: initData,
+      auth_date: params.get('auth_date')
+    };
 
     next();
   } catch (error) {
-    res.status(403).json({ success: false, message: 'Permission denied' });
+    return res.status(400).json({
+      success: false,
+      message: 'Failed to parse Telegram data',
+      error: error.message
+    });
+  }
+};
+
+/**
+ * Admin Authentication Middleware
+ */
+const verifyAdmin = (req, res, next) => {
+  try {
+    const token = req.headers.authorization?.split(' ')[1];
+
+    if (!token) {
+      return res.status(401).json({
+        success: false,
+        message: 'Admin authentication required'
+      });
+    }
+
+    const decoded = jwt.verify(token, config.JWT_SECRET);
+
+    if (!decoded.is_admin || !['super_admin', 'admin', 'moderator'].includes(decoded.role)) {
+      return res.status(403).json({
+        success: false,
+        message: 'Admin access required'
+      });
+    }
+
+    req.admin = decoded;
+    next();
+  } catch (error) {
+    return res.status(401).json({
+      success: false,
+      message: 'Invalid admin token'
+    });
   }
 };
 
 module.exports = {
-  verifyTelegramInitData,
-  verifyJWT,
-  verifyAdmin,
+  verifyToken,
+  verifyTelegramData,
+  verifyAdmin
 };
