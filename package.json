@@ -1,24 +1,16 @@
 {
-  "name": "bd-task-telegram-mini-app",
+  "name": "bd-task-server",
   "version": "1.0.0",
-  "description": "Telegram Mini App - Watch Ads and Earn",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js"
+    "start": "node index.js"
   },
-  "keywords": [
-    "telegram",
-    "mini-app",
-    "ads",
-    "earning",
-    "bdtask"
-  ],
-  "author": "BD-TASK",
-  "license": "MIT",
   "dependencies": {
-    "express": "^4.18.2",
-    "dotenv": "^16.3.1",
-    "cors": "^2.8.5"
+    "express": "^4.19.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "jsonwebtoken": "^9.0.2",
+    "helmet": "^7.1.0",
+    "express-rate-limit": "^7.2.0"
   }
 }
